@@ -118,3 +118,4 @@ select{width:100%;background:#0f1519;color:var(--ink);border:1px solid #33434f;b
 .seg{display:flex;gap:0;margin-top:2px;border:1px solid #33434f;border-radius:7px;overflow:hidden}
 .seg button{flex:1;border:none;border-radius:0;padding:7px 6px;background:#131b21}
 .seg button.on{background:var(--accent);color:#04121d;font-weight:600}
+#riverBox .item{cursor:pointer}#riverBox .item:hover{background:#1a242c}
