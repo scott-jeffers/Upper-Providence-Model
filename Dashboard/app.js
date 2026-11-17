@@ -61,7 +61,7 @@ const basemaps = {
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', {maxZoom:19}),
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {maxZoom:19})])
 };
-let curBase = 'Light'; basemaps[curBase].addTo(map);
+let curBase = 'Imagery'; basemaps[curBase].addTo(map);
 
 // ------------------------------------------------------------------ static model layers
 const wsLayer = L.geoJSON(M.watershed, {pane:'vecPane', interactive:false, style:{color:'#0b3d91', weight:3, fill:false, dashArray:'8 5'}}).addTo(map);
@@ -330,7 +330,7 @@ function renderLegend() {
   lg.innerHTML = parts.length ? `<div class="lg-head"><span>Legend</span><button class="ghost small" id="lgToggle">${legendMin?'+':'–'}</button></div><div class="lg-body${legendMin?' hidden':''}">${parts.join('')}</div>` : '';
   const t = $('lgToggle'); if (t) t.onclick = () => { legendMin = !legendMin; renderLegend(); };
 }
-let legendMin = window.innerWidth < 820;
+let legendMin = true;   // legend starts collapsed
 
 // ------------------------------------------------------------------ live data: rain
 const live = {qpf:{}, past:{}, alerts:[]};
@@ -558,6 +558,13 @@ async function loadGauges() {
     (j.gauges||[]).forEach(n=>{ const usgsId = n.usgsId ? 'USGS-' + n.usgsId : null; const g = (usgsId && gauges[usgsId]) || (gauges['NWS-'+n.lid] = gauges['NWS-'+n.lid] || {id:'NWS-'+n.lid, name:n.name, lat:n.latitude, lon:n.longitude, src:'NWS'});
       g.nws = {lid:n.lid, cat:(n.status&&n.status.observed&&n.status.observed.floodCategory)||'', fcat:(n.status&&n.status.forecast&&n.status.forecast.floodCategory)||'', obs:n.status&&n.status.observed&&n.status.observed.primary, units:n.status&&n.status.observed&&n.status.observed.primaryUnit}; if (!g.name || g.name.startsWith('USGS-')) g.name = n.name; });
   } catch (e) { /* NWPS unavailable */ }
+  // one marker per site: fold NWS-only entries into the nearest USGS gauge (within 1 km) and drop the rest
+  Object.values(gauges).filter(g=>g.src==='NWS').forEach(n=>{
+    let best=null, bd=1000;
+    Object.values(gauges).filter(g=>g.src==='USGS').forEach(u=>{ const d=map.distance([n.lat,n.lon],[u.lat,u.lon]); if (d<bd) { bd=d; best=u; } });
+    if (best && !best.nws) best.nws = n.nws;
+    delete gauges[n.id];
+  });
   drawGauges(); if (curTab==='gauges') renderGaugeList();
 }
 // where is a gauge relative to the modeled watershed?
