@@ -179,6 +179,6 @@ window.SCENARIO_INDEX=[
 "depth_in": 3.2,
 "qS": 2500,
 "qP": 600,
-"available": false
+"available": true
 }
 ];
