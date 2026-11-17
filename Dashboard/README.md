@@ -1,6 +1,6 @@
 # Upper Providence River Flood Watch: dashboard
 
-A static web page with no build step. Open `index.html` directly, or host the `Dashboard/` folder on any static web host. The repository's GitHub Pages workflow publishes this folder.
+A static web page with no build step. Open `index.html` directly, or host the `Dashboard/` folder on any static web host. GitHub Pages serves it from the main branch at https://scott-jeffers.github.io/Upper-Providence-Model/Dashboard/.
 
 ## What it shows
 - **Rivers:** live stage and the NWS forecast crest at Pottstown (PTNP1), Graterford (GRAP1) and Norristown (NRSP1).

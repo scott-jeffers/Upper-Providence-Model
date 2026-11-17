@@ -2,7 +2,7 @@
 
 This repository holds a HEC-RAS 7 2D flood model and a public flood-watch dashboard for Upper Providence Township, Montgomery County, PA. The model covers the Schuylkill River, Perkiomen Creek and the township's local streams.
 
-- **`Dashboard/`**: a static web page showing live river forecasts, radar and rain, NWS alerts, FEMA flood zones and modeled flood depths. GitHub Pages publishes this folder.
+- **`Dashboard/`**: a static web page showing live river forecasts, radar and rain, NWS alerts, FEMA flood zones and modeled flood depths. Live page: https://scott-jeffers.github.io/Upper-Providence-Model/ (GitHub Pages, served from the main branch).
 - **`Model/UpperProvidence/`**: the HEC-RAS project text files (project, geometry, flow and plan files). The large HDF result files and the terrain are not stored here.
 - **`Scripts/`**: Python scripts that built the terrain, inferred the culverts, built the mesh and generated the plans.
 - **`GIS/`**: the model domain, township boundary and inferred culverts and bridges.
