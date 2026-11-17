@@ -435,7 +435,7 @@ function renderRiver() {
     const pk = o.fcPeakStage != null && isFinite(o.fcPeakStage) ? `forecast crest ${o.fcPeakStage.toFixed(1)} ft${o.fcPeakTime?' '+new Date(o.fcPeakTime).toLocaleString([], {weekday:'short',hour:'numeric'}):''}${o.fcPeakFlowCfs?' (~'+Math.round(o.fcPeakFlowCfs/100)/10+'k cfs)':''}` : 'no forecast';
     const flood = o.cats ? `flood stage ${o.cats.minor && o.cats.minor.stage} ft` : '';
     const sev = /major|moderate/i.test(cat) ? 'b-hi' : /minor/i.test(cat) ? 'b-md' : /action/i.test(cat) ? 'b-lo' : 'b-ok';
-    return `<div class="item"><div><div class="nm">${esc(p.name)} <span class="fine">(${lid})</span></div><div class="meta">${st} · ${pk} · ${flood}</div></div><span class="badge ${sev}">${esc(cat||ocat||'—')}</span></div>`; }).join('');
+    return `<div class="item"><div><div class="nm">${esc(p.name)} <span class="fine">(${lid})</span></div><div class="meta">${st} · ${pk} · ${flood}</div></div><span class="badge ${sev}">${esc(((cat||ocat||'—')+'').replace(/_/g,' ').replace(/^no flooding$/i,'Normal').replace(/^\w/,c=>c.toUpperCase()))}</span></div>`; }).join('');
 }
 function matchScenario() {
   const rv = live.river || {}; const qS = rv.PTNP1 && rv.PTNP1.fcPeakFlowCfs, qP = rv.GRAP1 && rv.GRAP1.fcPeakFlowCfs;
