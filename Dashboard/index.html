@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261117d">
+<link rel="stylesheet" href="style.css?v=20261117e">
 </head>
 <body>
 <div id="app">
@@ -38,7 +38,7 @@
     </section>
 
     <section class="card">
-      <h2>Rain <span class="help" data-tip="Past rain is radar-estimated (NOAA MRMS via Iowa Environmental Mesonet). Forecast rain is the NWS Weather Prediction Center forecast at the center of the watershed. 'About a N-year storm' compares the amount to NOAA Atlas 14 for this location.">?</span></h2>
+      <h2>Rain <span class="help" data-tip="Past rain is radar-estimated (NOAA MRMS via Iowa Environmental Mesonet). Forecast rain is the NWS Weather Prediction Center forecast (6 hr to 7 days) at the center of the model area. 'About a N-year storm' compares the amount to NOAA Atlas 14 for this location.">?</span></h2>
       <div class="rain-grid">
         <div class="rain-col">
           <div class="rain-head">Past</div>
@@ -51,6 +51,8 @@
           <div class="rain" id="qpf6"><span class="v">–</span><span class="l">next 6 hr</span><span class="rp"></span></div>
           <div class="rain" id="qpf24"><span class="v">–</span><span class="l">next 24 hr</span><span class="rp"></span></div>
           <div class="rain" id="qpf72"><span class="v">–</span><span class="l">next 3 days</span><span class="rp"></span></div>
+          <div class="rain" id="qpf120"><span class="v">–</span><span class="l">next 5 days</span><span class="rp"></span></div>
+          <div class="rain" id="qpf168"><span class="v">–</span><span class="l">next 7 days</span><span class="rp"></span></div>
         </div>
       </div>
       <div class="fine" id="qpfIssued"></div>
@@ -128,6 +130,6 @@
 <script src="data/model_layers.js"></script>
 <script src="data/fema_zones.js"></script>
 <script src="data/scenarios/index.js"></script>
-<script src="app.js?v=20261117d"></script>
+<script src="app.js?v=20261117e"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ const USGS = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
 const FLOOD_EVENTS = /flood|flash|hydrolog|heavy rain|tropical|hurricane/i;
 
 // ------------------------------------------------------------------ helpers
+const WIN_LABEL = {'1h':'1 hr','6h':'6 hr','24h':'1 day','48h':'2 days','72h':'3 days','120h':'5 days','168h':'7 days'};
 const $ = (id) => document.getElementById(id);
 const fmtIn = (v) => (v == null || isNaN(v)) ? '–' : (v < 0.005 ? '0.00"' : v.toFixed(2) + '"');
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -29,8 +30,11 @@ function setUpdated(msg) { $('updated').textContent = msg; }
 
 // Atlas 14: depth for a duration key -> approximate return period (years)
 function returnPeriod(depth, durKey) {
-  const j = A14.dur.indexOf(durKey); if (j < 0 || depth == null) return null;
-  const row = A14.depth[j], rp = A14.rp;
+  if (depth == null) return null;
+  let row, j = A14.dur.indexOf(durKey); const rp = A14.rp;
+  if (j >= 0) row = A14.depth[j];
+  else if (durKey === '5-day') { const a = A14.depth[A14.dur.indexOf('4-day')], b = A14.depth[A14.dur.indexOf('7-day')], f = Math.log(5/4)/Math.log(7/4); row = a.map((v,i)=> Math.exp(Math.log(v) + f*(Math.log(b[i])-Math.log(v)))); }
+  else return null;
   if (depth < row[0]) return {rp: 0, label: 'less than a 1-year storm'};
   for (let i = 1; i < rp.length; i++) {
     if (depth <= row[i]) {
@@ -85,7 +89,7 @@ const rainPast = {
   '24h': tile('q2-p24h-900913', {pane:'rainPane', opacity:.7}),
   '72h': tile('q2-p72h-900913', {pane:'rainPane', opacity:.7})
 };
-const qpfLayers = {'6h':[7], '24h':[1], '72h':[9]};
+const qpfLayers = {'6h':[7], '24h':[1], '48h':[8], '72h':[9], '120h':[10], '168h':[11]};
 let qpfLayer = null, qpfWin = '6h';
 function makeQpf(win) { return L.esri.dynamicMapLayer({url: QPF, layers: qpfLayers[win], opacity: .6, pane:'rainPane', attribution:'NWS WPC'}); }
 // draw 0.2% first so the 1% and floodway sit on top
@@ -242,7 +246,7 @@ const LAYERS = [
   {id:'loop', name:'Radar loop (last 50 min)', sw:'linear-gradient(90deg,#02fd02,#fd9500,#fd0000)', add:()=>{ if (state.radar) toggle('radar', false); startLoop(); }, rm:()=>stopLoop(true)},
   {id:'past', name:'Rain that has fallen', sw:'linear-gradient(90deg,#9ee39e,#2a9df4,#c20f0f)', choices:['1h','24h','72h'], val:'24h',
     add:(v)=>rainPast[v].addTo(map), rm:()=>Object.values(rainPast).forEach(l=>map.removeLayer(l))},
-  {id:'qpf', name:'Forecast rain (NWS)', sw:'linear-gradient(90deg,#7cfc00,#1e90ff,#8a2be2)', choices:['6h','24h','72h'], val:'6h',
+  {id:'qpf', name:'Forecast rain (NWS)', sw:'linear-gradient(90deg,#7cfc00,#1e90ff,#8a2be2)', choices:['6h','24h','48h','72h','120h','168h'], val:'6h',
     add:(v)=>{ qpfWin=v; qpfLayer=makeQpf(v).addTo(map); }, rm:()=>{ if(qpfLayer){ map.removeLayer(qpfLayer); qpfLayer=null; } }},
   {id:'alerts', name:'NWS warning areas', sw:'#e0393e', on:true, add:()=>alertLayer.addTo(map), rm:()=>map.removeLayer(alertLayer)},
   {group:'Flood model'},
@@ -291,7 +295,7 @@ function buildPanel() {
     row.querySelector('input').onchange = (e)=> toggle(d.id, e.target.checked);
     if (d.choices) {
       const rr = document.createElement('div'); rr.className='radio-row'; rr.style.marginLeft='22px';
-      rr.innerHTML = d.choices.map(c=>`<button data-c="${c}" class="${c===d.val?'on':''}">${c==='1h'?'1 hr':c==='6h'?'6 hr':c==='24h'?'24 hr':'3 days'}</button>`).join('');
+      rr.innerHTML = d.choices.map(c=>`<button data-c="${c}" class="${c===d.val?'on':''}">${WIN_LABEL[c]}</button>`).join('');
       rr.querySelectorAll('button').forEach(b=> b.onclick = (ev)=>{ ev.preventDefault(); d.val=b.dataset.c; rr.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); if (state[d.id]) { d.rm(); d.add(d.val); } else toggle(d.id,true); renderLegend(); });
       grp.appendChild(rr);
     }
@@ -319,7 +323,7 @@ function renderLegend() {
   if (state.radar || state.loop) parts.push(`<div class="lg"><div class="lg-t">Radar (rain rate, rough)</div>
     ${[['#04e9e7','Trace'],['#02b902','~0.1 in/hr'],['#008e00','~0.25 in/hr'],['#fdf802','~0.5 in/hr'],['#fd9500','~1.25 in/hr'],['#fd0000','~2.5 in/hr'],['#bc0000','~4 in/hr'],['#f800fd','8+ in/hr']].map(r=>`<div class="lg-r"><i style="background:${r[0]}"></i>${r[1]}</div>`).join('')}
     <div class="lg-n">Radar shows reflectivity, not measured rain. Rates are rough. Faint gray-purple squares are very weak returns (clear air, birds, drizzle), not real rain.</div></div>`);
-  if (state.qpf) parts.push(`<div class="lg"><div class="lg-t">Forecast rain, next ${qpfWin==='72h'?'3 days':qpfWin.replace('h',' hr')}</div>
+  if (state.qpf) parts.push(`<div class="lg"><div class="lg-t">Forecast rain, next ${WIN_LABEL[qpfWin]}</div>
     ${[['#7fff00','0.01"'],['#00ff00','0.10"'],['#008b00','0.25"'],['#104e8b','0.50"'],['#1e90ff','0.75"'],['#00b2ee','1.00"'],['#00eeee','1.25"'],['#8968cd','1.50"'],['#912cee','1.75"'],['#8b008b','2.00"'],['#8b0000','2.50"'],['#ff0000','3.00"+']].map(r=>`<div class="lg-r"><i style="background:${r[0]}"></i>${r[1]}</div>`).join('')}
     <div class="lg-n">NWS WPC forecast, averaged over ~20 km squares.</div></div>`);
   if (state.past) parts.push(`<div class="lg"><div class="lg-t">Rain that has fallen</div><div class="lg-n">NOAA MRMS radar + gauge estimate. Greens are light totals, blues moderate, reds and purples heavy. Exact totals for the watershed are in the side panel.</div></div>`);
@@ -356,7 +360,7 @@ async function qpfAt(layerId) {
   return {v: best.qpf, meta: best};
 }
 async function loadQpf() {
-  const wins = [['6h',7,'6-hr','qpf6'], ['24h',1,'24-hr','qpf24'], ['72h',9,'3-day','qpf72']];
+  const wins = [['6h',7,'6-hr','qpf6'], ['24h',1,'24-hr','qpf24'], ['72h',9,'3-day','qpf72'], ['120h',10,'5-day','qpf120'], ['168h',11,'7-day','qpf168']];
   await Promise.all(wins.map(async ([k, lid, dur, el]) => {
     try {
       const r = await qpfAt(lid); live.qpf[k] = r.v;
