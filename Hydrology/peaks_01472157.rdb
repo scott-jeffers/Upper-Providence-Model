@@ -1,0 +1,131 @@
+#
+# U.S. Geological Survey
+# National Water Information System
+# Retrieved: 2026-11-16 09:28:49 EST
+#
+# ---------------------------------- WARNING ----------------------------------------
+# Some of the data that you have obtained from this U.S. Geological Survey database
+# may not have received Director's approval. Any such data values are qualified
+# as provisional and are subject to revision. Provisional data are released on the
+# condition that neither the USGS nor the United States Government may be held liable
+# for any damages resulting from its use.
+#
+# More data may be available offline.
+# For more information on these data,  contact  USGS Water Data Inquiries.
+# This file contains the annual peak streamflow data.
+#
+# This information includes the following fields:
+#
+#  agency_cd     Agency Code
+#  site_no       USGS station number
+#  peak_dt       Date of peak streamflow (format YYYY-MM-DD)
+#  peak_tm       Time of peak streamflow (24 hour format, 00:00 - 23:59)
+#  peak_va       Annual peak streamflow value in cfs
+#  peak_cd       Peak Discharge-Qualification codes (see explanation below)
+#  gage_ht       Gage height for the associated peak streamflow in feet
+#  gage_ht_cd    Gage height qualification codes
+#  year_last_pk  Peak streamflow reported is the highest since this year
+#  ag_dt         Date of maximum gage-height for water year (if not concurrent with peak)
+#  ag_tm         Time of maximum gage-height for water year (if not concurrent with peak
+#  ag_gage_ht    maximum Gage height for water year in feet (if not concurrent with peak
+#  ag_gage_ht_cd maximum Gage height code
+#
+# Sites in this file include:
+#  USGS 01472157 French Creek near Phoenixville, PA
+#
+# Peak Streamflow-Qualification Codes(peak_cd):
+#   1 ... Discharge is a Maximum Daily Average
+#   2 ... Discharge is an Estimate
+#   3 ... Discharge affected by Dam Failure
+#   4 ... Discharge less than indicated value,
+#           which is Minimum Recordable Discharge at this site
+#   5 ... Discharge affected to unknown degree by
+#           Regulation or Diversion
+#   6 ... Discharge affected by Regulation or Diversion
+#   7 ... Discharge is an Historic Peak
+#   8 ... Discharge actually greater than indicated value
+#   9 ... Discharge due to Snowmelt, Hurricane,
+#           Ice-Jam or Debris Dam breakup
+#   A ... Year of occurrence is unknown or not exact
+#   Bd ... Day of occurrence is unknown or not exact
+#   Bm ... Month of occurrence is unknown or not exact
+#   C ... All or part of the record affected by Urbanization,
+#            Mining, Agricultural changes, Channelization, or other
+#   F ... Peak supplied by another agency
+#   O ... Opportunistic value not from systematic data collection
+#   R ... Revised
+#
+# Gage height qualification codes(gage_ht_cd,ag_gage_ht_cd):
+#   1 ... Gage height affected by backwater
+#   2 ... Gage height not the maximum for the year
+#   3 ... Gage height at different site and(or) datum
+#   4 ... Gage height below minimum recordable elevation
+#   5 ... Gage height is an estimate
+#   6 ... Gage datum changed during this year
+#   7 ... Debris, mud, or hyper-concentrated flow
+#   8 ... Gage height tidally affected
+#   Bd ... Day of occurrence is unknown or not exact
+#   Bm ... Month of occurrence is unknown or not exact
+#   F ... Peak supplied by another agency
+#   R ... Revised
+#
+#
+agency_cd	site_no	peak_dt	peak_tm	peak_va	peak_cd	gage_ht	gage_ht_cd	year_last_pk	ag_dt	ag_tm	ag_gage_ht	ag_gage_ht_cd
+5s	15s	10d	6s	8s	33s	8s	27s	4s	10d	6s	8s	27s
+USGS	01472157	1969-07-28		1300		7.57						
+USGS	01472157	1970-04-02		1460		7.80						
+USGS	01472157	1971-09-13		3330		9.66						
+USGS	01472157	1972-06-22		11200		13.66						
+USGS	01472157	1973-06-29		7090		12.02						
+USGS	01472157	1973-12-21		2090		8.42						
+USGS	01472157	1975-07-14		2100		8.43						
+USGS	01472157	1976-01-27		1380		7.57						
+USGS	01472157	1977-03-22		1720		8.00						
+USGS	01472157	1978-01-26		2840		9.20						
+USGS	01472157	1979-01-24		6460		11.74						
+USGS	01472157	1980-03-21		1440		7.65						
+USGS	01472157	1981-02-12		770		6.65						
+USGS	01472157	1982-07-28		4760		10.54						
+USGS	01472157	1983-04-10		1870		8.24						
+USGS	01472157	1984-07-01		6410		11.49	2		1984-07-01	1200	11.49	
+USGS	01472157	1985-09-27		2950		9.25						
+USGS	01472157	1986-01-26		756		6.74						
+USGS	01472157	1987-09-09		3180		9.43						
+USGS	01472157	1988-05-19		2240		8.62						
+USGS	01472157	1989-07-13		1620		7.96						
+USGS	01472157	1990-05-30		1840		8.25						
+USGS	01472157	1991-07-13		1350		7.67						
+USGS	01472157	1992-03-27		1000		7.17						
+USGS	01472157	1993-03-04		1890		8.30						
+USGS	01472157	1993-12-05		4250		10.24						
+USGS	01472157	1995-03-08		2580		8.98						
+USGS	01472157	1996-01-19		4570		10.47						
+USGS	01472157	1996-10-19		3570		9.78						
+USGS	01472157	1998-04-01		1700		8.09	2		1998-04-01	1200	8.63	
+USGS	01472157	1999-09-16		9370		12.93						
+USGS	01472157	2000-03-22		2960		9.30						
+USGS	01472157	2000-12-17		2520		8.92						
+USGS	01472157	2002-05-13		771		6.69						
+USGS	01472157	2003-06-21		5420		10.99						
+USGS	01472157	2004-09-18		3360		9.51						
+USGS	01472157	2005-04-02		2530		8.79						
+USGS	01472157	2006-06-28		7760		12.21						
+USGS	01472157	2007-04-27		3520		9.67						
+USGS	01472157	2008-02-13		1720		7.96						
+USGS	01472157	2008-12-12		2480		8.77						
+USGS	01472157	2010-03-13		3130		9.35						
+USGS	01472157	2011-08-28		5900		11.29						
+USGS	01472157	2011-11-23		2160		8.81						
+USGS	01472157	2012-10-29		2250		8.90						
+USGS	01472157	2014-05-01	00:45	5770		11.38						
+USGS	01472157	2015-03-11	01:15	1050		7.45						
+USGS	01472157	2016-02-24		3420		9.89						
+USGS	01472157	2017-03-31	19:15	1050		7.45						
+USGS	01472157	2018-08-13	09:30	3570		10.01						
+USGS	01472157	2019-07-12	02:45	2710		9.32						
+USGS	01472157	2020-08-04	17:08	4690		10.76						
+USGS	01472157	2021-09-01	20:00	7660		12.32						
+USGS	01472157	2022-04-07	22:00	1560		8.15						
+USGS	01472157	2023-07-25	14:37	2920		9.50						
+USGS	01472157	2025-05-31	02:30	828								
+USGS	01472157	2026-09-21	02:00			7.16						

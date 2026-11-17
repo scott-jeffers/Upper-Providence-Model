@@ -1,0 +1,7 @@
+*.hdf
+*.tif
+*.npz
+*.gpkg-journal
+*.bak
+__pycache__/
+_site/

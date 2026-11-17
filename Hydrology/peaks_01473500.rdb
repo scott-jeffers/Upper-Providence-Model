@@ -1,0 +1,112 @@
+#
+# U.S. Geological Survey
+# National Water Information System
+# Retrieved: 2026-11-16 09:28:50 EST
+#
+# ---------------------------------- WARNING ----------------------------------------
+# Some of the data that you have obtained from this U.S. Geological Survey database
+# may not have received Director's approval. Any such data values are qualified
+# as provisional and are subject to revision. Provisional data are released on the
+# condition that neither the USGS nor the United States Government may be held liable
+# for any damages resulting from its use.
+#
+# More data may be available offline.
+# For more information on these data,  contact  USGS Water Data Inquiries.
+# This file contains the annual peak streamflow data.
+#
+# This information includes the following fields:
+#
+#  agency_cd     Agency Code
+#  site_no       USGS station number
+#  peak_dt       Date of peak streamflow (format YYYY-MM-DD)
+#  peak_tm       Time of peak streamflow (24 hour format, 00:00 - 23:59)
+#  peak_va       Annual peak streamflow value in cfs
+#  peak_cd       Peak Discharge-Qualification codes (see explanation below)
+#  gage_ht       Gage height for the associated peak streamflow in feet
+#  gage_ht_cd    Gage height qualification codes
+#  year_last_pk  Peak streamflow reported is the highest since this year
+#  ag_dt         Date of maximum gage-height for water year (if not concurrent with peak)
+#  ag_tm         Time of maximum gage-height for water year (if not concurrent with peak
+#  ag_gage_ht    maximum Gage height for water year in feet (if not concurrent with peak
+#  ag_gage_ht_cd maximum Gage height code
+#
+# Sites in this file include:
+#  USGS 01473500 Schuylkill River at Norristown, PA
+#
+# Peak Streamflow-Qualification Codes(peak_cd):
+#   1 ... Discharge is a Maximum Daily Average
+#   2 ... Discharge is an Estimate
+#   3 ... Discharge affected by Dam Failure
+#   4 ... Discharge less than indicated value,
+#           which is Minimum Recordable Discharge at this site
+#   5 ... Discharge affected to unknown degree by
+#           Regulation or Diversion
+#   6 ... Discharge affected by Regulation or Diversion
+#   7 ... Discharge is an Historic Peak
+#   8 ... Discharge actually greater than indicated value
+#   9 ... Discharge due to Snowmelt, Hurricane,
+#           Ice-Jam or Debris Dam breakup
+#   A ... Year of occurrence is unknown or not exact
+#   Bd ... Day of occurrence is unknown or not exact
+#   Bm ... Month of occurrence is unknown or not exact
+#   C ... All or part of the record affected by Urbanization,
+#            Mining, Agricultural changes, Channelization, or other
+#   F ... Peak supplied by another agency
+#   O ... Opportunistic value not from systematic data collection
+#   R ... Revised
+#
+# Gage height qualification codes(gage_ht_cd,ag_gage_ht_cd):
+#   1 ... Gage height affected by backwater
+#   2 ... Gage height not the maximum for the year
+#   3 ... Gage height at different site and(or) datum
+#   4 ... Gage height below minimum recordable elevation
+#   5 ... Gage height is an estimate
+#   6 ... Gage datum changed during this year
+#   7 ... Debris, mud, or hyper-concentrated flow
+#   8 ... Gage height tidally affected
+#   Bd ... Day of occurrence is unknown or not exact
+#   Bm ... Month of occurrence is unknown or not exact
+#   F ... Peak supplied by another agency
+#   R ... Revised
+#
+#
+agency_cd	site_no	peak_dt	peak_tm	peak_va	peak_cd	gage_ht	gage_ht_cd	year_last_pk	ag_dt	ag_tm	ag_gage_ht	ag_gage_ht_cd
+5s	15s	10d	6s	8s	33s	8s	27s	4s	10d	6s	8s	27s
+USGS	01473500	1928-07-14		36400		12.10	3					
+USGS	01473500	1929-02-26		36400		12.10						
+USGS	01473500	1929-10-02		41200		10.26						
+USGS	01473500	1931-07-15		42000		10.40						
+USGS	01473500	1932-03-28		33200		8.83						
+USGS	01473500	1933-03-22		41000		10.20						
+USGS	01473500	1983-12-14		42700		62.94	3					
+USGS	01473500	1985-09-27		40500		62.52	3					
+USGS	01473500	1986-03-15		20100		57.48	3					
+USGS	01473500	1987-09-09		35800		61.45	3					
+USGS	01473500	1988-05-20		27900		59.90	3					
+USGS	01473500	1989-05-06		30300		60.74	3					
+USGS	01473500	1990-05-30		29200		60.41	3					
+USGS	01473500	1990-12-05		15500		55.81	3					
+USGS	01473500	1992-03-28		14600		55.46	3					
+USGS	01473500	1993-03-24		30800		60.88	3					
+USGS	01473500	2002-05-14		31900		13.08	3					
+USGS	01473500	2003-06-21		56100		16.28						
+USGS	01473500	2004-09-18		54300		16.00						
+USGS	01473500	2005-04-03		54600		16.04						
+USGS	01473500	2006-06-28		78400		19.13						
+USGS	01473500	2007-04-15		47800		15.11						
+USGS	01473500	2008-02-13		37800		13.80						
+USGS	01473500	2008-12-12		40200		14.12						
+USGS	01473500	2010-03-13		36300		13.60						
+USGS	01473500	2011-08-28		81400		19.76						
+USGS	01473500	2011-11-23		37300		14.15						
+USGS	01473500	2013-01-31		36200		13.99						
+USGS	01473500	2014-05-01	03:00	90400		20.81						
+USGS	01473500	2015-03-14	18:45	23900		12.19						
+USGS	01473500	2016-02-25		37100		14.12						
+USGS	01473500	2017-04-01	02:00	26500		12.58						
+USGS	01473500	2018-08-13	21:53	44200		15.10						
+USGS	01473500	2019-07-12	04:08	54800		16.49						
+USGS	01473500	2020-08-04	23:08	88400		20.58						
+USGS	01473500	2021-09-02	05:15	119000		26.88						
+USGS	01473500	2022-04-08	02:30	34200		13.66						
+USGS	01473500	2023-07-10	05:38	27700		12.84						
