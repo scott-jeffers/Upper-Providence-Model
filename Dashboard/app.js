@@ -438,8 +438,10 @@ function renderRiver() {
     return `<div class="item" data-lid="${lid}" title="Show on map"><div><div class="nm">${esc(p.name)} <span class="fine">(${lid})</span></div><div class="meta">${st} · ${pk} · ${flood}</div></div><span class="badge ${sev}">${esc(((cat||ocat||'—')+'').replace(/_/g,' ').replace(/^no flooding$/i,'Normal').replace(/^\w/,c=>c.toUpperCase()))}</span></div>`; }).join('');
   box.querySelectorAll('[data-lid]').forEach(el=> el.onclick = ()=> showRiverGauge(el.dataset.lid));
 }
+window.__upPop = () => { const p = map._popup; if (p && p.isOpen()) { p.update(); p._adjustPan && p._adjustPan(); } };
+const catTxt = c => ((c||'')+'').replace(/_/g,' ').replace(/^no flooding$/i,'normal');
 const nwpsLinks = lid => `<a href="https://water.noaa.gov/gauges/${lid.toLowerCase()}" target="_blank" rel="noopener">NOAA gauge viewer ↗</a>`;
-const nwpsHydro = lid => `<a href="https://water.noaa.gov/gauges/${lid.toLowerCase()}" target="_blank" rel="noopener"><img class="hydro" src="https://water.noaa.gov/resources/hydrographs/${lid.toLowerCase()}_hg.png?t=${Math.floor(Date.now()/9e5)}" alt="NWS observed and forecast hydrograph" style="width:100%;max-width:340px;display:block;margin:6px 0;border-radius:4px;background:#fff" onerror="this.parentNode.style.display='none'"></a>`;
+const nwpsHydro = lid => `<a href="https://water.noaa.gov/gauges/${lid.toLowerCase()}" target="_blank" rel="noopener"><img class="hydro" src="https://water.noaa.gov/resources/hydrographs/${lid.toLowerCase()}_hg.png?t=${Math.floor(Date.now()/9e5)}" alt="NWS observed and forecast hydrograph" style="width:100%;max-width:340px;display:block;margin:6px 0;border-radius:4px;background:#fff" onload="window.__upPop&&window.__upPop()" onerror="this.parentNode.style.display='none'"></a>`;
 function riverForecastLine(lid) {
   const o = (live.river||{})[lid]; if (!o || o.fcPeakStage == null || !isFinite(o.fcPeakStage)) return '<div class="pp-m">No NWS forecast issued for this gauge right now.</div>';
   return `<div class="pp-m">NWS forecast crest <b>${o.fcPeakStage.toFixed(1)} ft</b>${o.fcPeakTime?' '+new Date(o.fcPeakTime).toLocaleString([], {weekday:'short',hour:'numeric'}):''}${o.fcPeakFlowCfs?' (~'+Math.round(o.fcPeakFlowCfs/100)/10+'k cfs)':''}${o.cats&&o.cats.minor?' · flood stage '+o.cats.minor.stage+' ft':''}</div>`;
@@ -591,7 +593,7 @@ function inWs(lat, lon) { return wsRings.some(r=>{ let c=false; for (let i=0,j=r
 function gaugeWhere(g) {
   if (inWs(g.lat, g.lon)) return 'In model area';
   if (map.distance([g.lat,g.lon], OUTLET) < 2500) return 'Just downstream of model area';
-  return 'Outside watershed';
+  return 'Outside model area';
 }
 function gaugeColor(g) { const c = g.nws && (g.nws.cat||'').toLowerCase(); return catColor[c] || '#10b981'; }
 function drawGauges() {
@@ -602,7 +604,7 @@ function drawGauges() {
   });
 }
 function gaugePopup(g) {
-  const nws = g.nws ? `<div class="pp-m">NWS ${esc(g.nws.lid)} · observed: ${esc(g.nws.cat||'no flood category')}${g.nws.fcat?' · forecast: '+esc(g.nws.fcat):''}</div>` : '';
+  const nws = g.nws ? `<div class="pp-m">NWS ${esc(g.nws.lid)} · observed: ${esc(catTxt(g.nws.cat)||'no flood category')}${g.nws.fcat?' · forecast: '+esc(catTxt(g.nws.fcat)):''}</div>` : '';
   const lid = g.nws && g.nws.lid;
   const noaa = lid ? `${RIVER_PTS[lid] ? riverForecastLine(lid) : ''}${nwpsHydro(lid)}` : '';
   return `<div class="pp-t">${esc(g.name)}</div><div class="pp-m">${gaugeWhere(g)}</div>${g.stage!=null?`<div class="pp-big">${g.stage.toFixed(2)} ft</div>`:''}${g.flow!=null?`<div>${Math.round(g.flow)} cfs</div>`:''}${g.time?`<div class="pp-m">${new Date(g.time).toLocaleString()}</div>`:''}${nws}<div id="spark-${g.id.replace(/\W/g,'')}" class="pp-m">${g.src==='USGS'?'Loading last 2 days…':''}</div>${noaa}<div>${g.src==='USGS'?`<a href="https://waterdata.usgs.gov/monitoring-location/${g.id.replace('USGS-','')}/" target="_blank" rel="noopener">USGS page ↗</a>`:''}${lid?(g.src==='USGS'?' · ':'')+nwpsLinks(lid):''}</div>`;
