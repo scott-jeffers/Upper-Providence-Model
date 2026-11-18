@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261117e">
+<link rel="stylesheet" href="style.css?v=20261118a">
 </head>
 <body>
 <div id="app">
@@ -101,8 +101,8 @@
 
     <section class="card about">
       <h2>About this map</h2>
-      <p>Built from a HEC-RAS 7 rain-on-grid model of the 20.8 sq mi Valley Creek watershed with a 1-meter USGS lidar DEM, county land cover and soils, 199 road crossings and 2,383 storm sewer pipes.</p>
-      <p><b>Limits:</b> many culvert and pipe sizes and depths were estimated, not surveyed. Flood maps show likely problem areas. They do not predict exact depths. Always confirm conditions in the field.</p>
+      <p>Built from a HEC-RAS 7 2D model (27.7 sq mi, about 117,000 cells) of the Schuylkill River, Perkiomen Creek and the local streams of Upper Providence Township, on 1-meter USGS lidar with estimated river channels, 281 lidar-inferred culverts and bridges, DVRPC land cover and NRCS soils. River levels are calibrated to within about 1 ft of FEMA 1% flood elevations on average.</p>
+      <p><b>Limits:</b> culvert sizes were inferred, not surveyed, and storm sewers are not modeled, so local-storm street ponding is overstated. Flood maps show likely problem areas. They do not predict exact depths. Always confirm conditions in the field.</p>
       <p class="fine">Live data: NWS (api.weather.gov, WPC QPF), NOAA MRMS and NEXRAD via Iowa Environmental Mesonet, USGS Water Data, NOAA NWPS, FEMA NFHL.</p>
     </section>
   </aside>
@@ -133,6 +133,6 @@
 <script src="data/model_layers.js"></script>
 <script src="data/fema_zones.js"></script>
 <script src="data/scenarios/index.js"></script>
-<script src="app.js?v=20261117e"></script>
+<script src="app.js?v=20261118a"></script>
 </body>
 </html>
